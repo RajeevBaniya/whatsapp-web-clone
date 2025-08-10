@@ -1,94 +1,95 @@
-# WhatsApp Web Clone
+# Assignment Task - WhatsApp Web – like chat interface 
 
-A WhatsApp Web-like chat interface that displays real-time conversations from webhook data, with support for sending new messages and hosting publicly.
+A chat interface that mimics WhatsApp Web functionality, built to display conversations from webhook data and allow users to send messages.
 
-## 🎯 Project Overview
+## About
 
-This project implements a WhatsApp Web clone with the following core features:
-- **Webhook Payload Processor**: Reads and processes JSON payloads simulating WhatsApp Business API webhooks
-- **WhatsApp Web-like Interface**: Clean, responsive UI showing conversations grouped by user
-- **Send Message Demo**: Add new messages (storage only, no external sending)
-- **Real-time Display**: Message bubbles with timestamps, status indicators, and user information
+This project creates a WhatsApp Web clone that processes webhook payloads and displays them in a familiar chat interface. Users can view conversations, send new messages, and interact with a responsive design that works on all devices.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-**Frontend**: React, Vite, Tailwind CSS, Axios  
-**Backend**: Node.js, Express, MongoDB, Mongoose  
-**File Upload**: Cloudinary, Multer
+**Frontend**: React with Vite, styled with Tailwind CSS  
+**Backend**: Node.js with Express and MongoDB  
+**File Storage**: Cloudinary for image uploads
 
-## 📁 Project Structure
+## Project Structure
 
 ```
-├── frontend/                 # React frontend
+├── frontend/                 # React application
 │   ├── src/
-│   │   ├── components/       # UI components
-│   │   ├── services/         # API services
-│   │   ├── utils/            # Helpers & constants
-│   │   └── assets/           # Images & icons
+│   │   ├── components/       # React components
+│   │   ├── services/         # API calls
+│   │   ├── utils/            # Helper functions
+│   │   └── assets/           # Images and icons
 │   └── package.json
-├── backend/                  # Node.js backend
-│   ├── routes/               # API routes
-│   ├── models/               # MongoDB schemas
+├── backend/                  # Node.js server
+│   ├── routes/               # API endpoints
+│   ├── models/               # Database models
 │   ├── utils/                # Utility functions
 │   └── package.json
-└── whatsapp sample payloads/ # Sample webhook data
+└── whatsapp sample payloads/ # Sample data files
 ```
 
-## 🚀 Quick Start
+## Getting Started
 
-### Prerequisites
-- Node.js (v16+)
-- MongoDB (local or Atlas)
-- npm or yarn
+### Requirements
+- Node.js (version 16 or higher)
+- MongoDB database
+- npm package manager
 
 ### Backend Setup
+First, set up the backend server:
+
 ```bash
 cd backend
 npm install
 ```
 
-Create `.env` file:
+Create a `.env` file in the backend folder:
 ```env
-MONGODB_URI=yourmongodburi
+MONGODB_URI=your_mongodb_connection_string
 PORT=5000
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 
-Start server:
+Start the backend:
 ```bash
 npm run dev
 ```
 
 ### Frontend Setup
+Next, set up the frontend:
+
 ```bash
 cd frontend
 npm install
 ```
 
-Create `.env` file:
+Create a `.env` file in the frontend folder:
 ```env
 VITE_API_URL=http://localhost:5000
 ```
 
-Start development server:
+Start the frontend:
 ```bash
 npm run dev
 ```
 
-## ✅ Task Completion
+## Features
 
-- **Task 1**: Webhook Payload Processor ✅
-- **Task 2**: WhatsApp Web-like Interface ✅  
-- **Task 3**: Send Message Demo ✅
+- Responsive design that works on mobile, tablet, and desktop
+- Send and delete messages with status tracking
+- Upload and share images using Cloudinary
+- Built-in emoji picker for message reactions
 
-## 🎨 Features
+## API Endpoints
 
-- **Responsive Design**: Mobile, tablet, desktop
-- **Message Management**: Send, delete, status tracking
-- **File Upload**: Image attachments via Cloudinary
-- **Emoji Picker**: Integrated emoji selection
-- **Multiple Views**: Chats, Status, Communities, Tools
-- **Modern UI**: WhatsApp Business Web design
+- `POST /api/webhook/process-payloads` - Process webhook data
+- `GET /api/webhook/conversations` - Get all conversations
+- `GET /api/webhook/messages?wa_id=<id>` - Get messages for a contact
+- `POST /api/webhook/messages` - Send a new message
+- `DELETE /api/webhook/messages/:id` - Delete a message
+- `DELETE /api/webhook/conversations/:wa_id` - Delete entire conversation
 
