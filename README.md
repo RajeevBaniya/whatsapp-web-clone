@@ -47,11 +47,11 @@ npm install
 
 Create a `.env` file in the backend folder:
 ```env
-MONGODB_URI=your_mongodb_connection_string
+MONGODB_URI=yourmongodburi
 PORT=5000
-CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
-CLOUDINARY_API_KEY=your_cloudinary_api_key
-CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+CLOUDINARY_CLOUD_NAME=yourcloudinaryname
+CLOUDINARY_API_KEY=yourcloudinaryapikey
+CLOUDINARY_API_SECRET=yourcloudinarysecretkey
 ```
 
 Start the backend:
