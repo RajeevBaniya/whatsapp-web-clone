@@ -1,10 +1,10 @@
 # Assignment Task - WhatsApp Web – like chat interface 
 
-A chat interface that mimics WhatsApp Web functionality, built to display conversations from webhook data and allow users to send messages.
+A chat interface that replicates WhatsApp Web functionality, built to display conversations from webhook data and allow users to send messages.
 
 ## About
 
-This project creates a WhatsApp Web clone that processes webhook payloads and displays them in a familiar chat interface. Users can view conversations, send new messages, and interact with a responsive design that works on all devices.
+This project is a WhatsApp Web like chat interface that processes webhook payloads and displays them in a familiar chat interface. Users can view conversations, send new messages and interact with a responsive design that works on all devices.
 
 ## Tech Stack
 
@@ -39,7 +39,7 @@ This project creates a WhatsApp Web clone that processes webhook payloads and di
 
 ### Backend Setup
 First, set up the backend server:
-
+o
 ```bash
 cd backend
 npm install
