@@ -13,6 +13,7 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const emojiPickerRef = useRef(null);
+  const containerRef = useRef(null);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -94,7 +95,11 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-end space-x-2 relative pb-2">
+    <form 
+      onSubmit={handleSubmit} 
+      className="flex items-end space-x-2 relative pb-2"
+      ref={containerRef}
+    >
       <input
                     ref={fileInputRef}
                     type="file"
@@ -149,10 +154,18 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
+          onFocus={() => {
+            containerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }}
           placeholder={isUploading ? "Uploading..." : "Type a message"}
           className="flex-1 bg-transparent resize-none outline-none text-[#111b21] placeholder-[#8696a0] text-[15px] leading-5 max-h-20"
           rows="1"
           disabled={!selectedContact || isUploading}
+          inputMode="text"
+          style={{
+            WebkitUserSelect: 'text',
+            paddingBottom: 'env(safe-area-inset-bottom)'
+          }}
         />
       </div>
 
@@ -160,25 +173,25 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
         <button
           type="submit"
           disabled={isUploading}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+          className={`w-12 h-12 md:w-10 md:h-10 aspect-square rounded-full p-0 flex items-center justify-center transition-colors shadow shrink-0 ${
             isUploading
               ? 'bg-[#8696a0] text-white opacity-50 cursor-not-allowed'
               : 'bg-[#00a884] text-white hover:bg-[#008069]'
           }`}
         >
           {isUploading ? (
-            <SpinnerIcon className="w-5 h-5" />
+            <SpinnerIcon className="w-6 h-6 md:w-5 md:h-5 block" />
           ) : (
-            <SendIcon className="w-5 h-5" />
+            <SendIcon className="w-6 h-6 md:w-5 md:h-5 block" />
           )}
         </button>
       ) : (
         <button
           type="submit"
           disabled
-          className="w-10 h-10 text-[#8696a0] hover:text-[#54656f] transition-colors flex items-center justify-center opacity-50 cursor-not-allowed"
+          className="w-12 h-12 md:w-10 md:h-10 aspect-square rounded-full p-0 text-[#8696a0] hover:text-[#54656f] transition-colors flex items-center justify-center opacity-50 cursor-not-allowed shrink-0"
         >
-          <SendIcon className="w-5 h-5" />
+          <SendIcon className="w-6 h-6 md:w-5 md:h-5 block" />
         </button>
       )}
     </form>

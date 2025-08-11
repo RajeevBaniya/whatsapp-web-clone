@@ -127,7 +127,7 @@ const ChatWindow = ({ selectedContact, messages, onSendMessage, onDeleteMessage,
   const groupedMessages = groupMessagesByDate(messages);
 
   return (
-    <div className="flex-1 flex flex-col h-full">
+    <div className="flex-1 flex flex-col h-full overscroll-contain">
       {/* Chat Header */}
              <div className="bg-[#f0f2f5] px-4 py-2 lg:py-3 border-b border-[#e9edef] flex items-center justify-center space-x-3 flex-shrink-0">
           {isMobile && onBackToChats && (
@@ -165,7 +165,7 @@ const ChatWindow = ({ selectedContact, messages, onSendMessage, onDeleteMessage,
 
       {/* Messages Area */}
       <div 
-        className="flex-1 overflow-y-auto px-2 sm:px-4 lg:px-6 py-1 lg:py-4 min-h-0"
+        className="flex-1 overflow-y-auto px-2 sm:px-4 lg:px-6 py-1 lg:py-4 min-h-0 will-change-scroll"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f0f2f5' fill-opacity='0.1'%3E%3Cpath d='M20 20c0 11.046-8.954 20-20 20v-40c11.046 0 20 8.954 20 20z'/%3E%3C/g%3E%3C/svg%3E")`,
           backgroundColor: '#efeae2'
@@ -242,7 +242,7 @@ const ChatWindow = ({ selectedContact, messages, onSendMessage, onDeleteMessage,
         <div ref={messagesEndRef} />
       </div>
 
-             <div className="bg-[#f0f2f5] px-4 py-3 border-t border-[#e9edef] flex-shrink-0">
+      <div className="bg-[#f0f2f5] px-4 py-3 border-t border-[#e9edef] flex-shrink-0 sticky bottom-[env(safe-area-inset-bottom)]">
         <MessageInput onSendMessage={onSendMessage} selectedContact={selectedContact} />
       </div>
     </div>
