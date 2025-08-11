@@ -94,28 +94,28 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex items-end space-x-2 relative pb-2">
+    <form onSubmit={handleSubmit} className="flex items-end space-x-1 sm:space-x-2 relative pb-2 px-2 sm:px-4">
       <input
-                    ref={fileInputRef}
-                    type="file"
-                    onChange={handleFileSelect}
-                    accept="image/*"
-                    className="hidden"
-                  />
+        ref={fileInputRef}
+        type="file"
+        onChange={handleFileSelect}
+        accept="image/*"
+        className="hidden"
+      />
 
       <button
         type="button"
         onClick={toggleEmojiPicker}
-        className="p-2 text-[#8696a0] hover:text-[#54656f] transition-colors"
+        className="p-1.5 sm:p-2 text-[#8696a0] hover:text-[#54656f] transition-colors flex-shrink-0"
       >
-        <MdEmojiEmotions className="w-6 h-6" />
+        <MdEmojiEmotions className="w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
       <button
         type="button"
         onClick={triggerFileUpload}
         disabled={isUploading}
-        className={`p-2 transition-colors ${
+        className={`p-1.5 sm:p-2 transition-colors flex-shrink-0 ${
           isUploading
             ? 'text-[#8696a0] opacity-50 cursor-not-allowed'
             : 'text-[#8696a0] hover:text-[#54656f]'
@@ -123,9 +123,9 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
         title="Attach image"
       >
         {isUploading ? (
-          <SpinnerIcon className="w-5 h-5" />
+          <SpinnerIcon className="w-4 h-4 sm:w-5 sm:h-5" />
         ) : (
-          <AttachmentIcon className="w-5 h-5" />
+          <AttachmentIcon className="w-4 h-4 sm:w-5 sm:h-5" />
         )}
       </button>
 
@@ -144,13 +144,13 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
         </div>
       )}
 
-      <div className="flex-1 bg-white rounded-3xl px-4 py-2 lg:py-2 flex items-center space-x-2">
+      <div className="flex-1 bg-white rounded-3xl px-3 sm:px-4 py-2 lg:py-2 flex items-center space-x-2 min-w-0">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyPress={handleKeyPress}
           placeholder={isUploading ? "Uploading..." : "Type a message"}
-          className="flex-1 bg-transparent resize-none outline-none text-[#111b21] placeholder-[#8696a0] text-[15px] leading-5 max-h-20"
+          className="flex-1 bg-transparent resize-none outline-none text-[#111b21] placeholder-[#8696a0] text-sm sm:text-[15px] leading-5 max-h-20 min-w-0"
           rows="1"
           disabled={!selectedContact || isUploading}
         />
@@ -160,25 +160,25 @@ const MessageInput = ({ onSendMessage, selectedContact }) => {
         <button
           type="submit"
           disabled={isUploading}
-          className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+          className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center transition-colors flex-shrink-0 ${
             isUploading
               ? 'bg-[#8696a0] text-white opacity-50 cursor-not-allowed'
               : 'bg-[#00a884] text-white hover:bg-[#008069]'
           }`}
         >
           {isUploading ? (
-            <SpinnerIcon className="w-5 h-5" />
+            <SpinnerIcon className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           ) : (
-            <SendIcon className="w-5 h-5" />
+            <SendIcon className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
           )}
         </button>
       ) : (
         <button
           type="submit"
           disabled
-          className="w-10 h-10 text-[#8696a0] hover:text-[#54656f] transition-colors flex items-center justify-center opacity-50 cursor-not-allowed"
+          className="w-8 h-8 sm:w-10 sm:h-10 text-[#8696a0] hover:text-[#54656f] transition-colors flex items-center justify-center opacity-50 cursor-not-allowed flex-shrink-0"
         >
-          <SendIcon className="w-5 h-5" />
+          <SendIcon className="w-3.5 h-3.5 sm:w-5 sm:h-5" />
         </button>
       )}
     </form>
