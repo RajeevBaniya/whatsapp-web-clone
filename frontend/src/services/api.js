@@ -5,11 +5,28 @@ const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const api = axios.create({
   baseURL: BASE_URL,
-  timeout: 10000,
+  timeout: 30000,
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+// Simple retry on timeout/network errors to ride out cold starts
+api.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const config = error.config || {};
+    const isNetworkOrTimeout = error.code === 'ECONNABORTED' || !error.response;
+    if (isNetworkOrTimeout) {
+      config.__retryCount = (config.__retryCount || 0) + 1;
+      if (config.__retryCount <= 2) {
+        await new Promise((r) => setTimeout(r, 1000 * config.__retryCount));
+        return api(config);
+      }
+    }
+    return Promise.reject(error);
+  }
+);
 
 const handleApiResponse = (response) => {
   if (response.data?.success) {

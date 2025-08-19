@@ -10,24 +10,37 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.error('MongoDB error:', err));
+// Prevent mongoose from buffering operations when DB is not connected
+mongoose.set('bufferCommands', false);
 
-app.use('/api/webhook', webhookRoutes);
+async function start() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+    });
+    console.log('MongoDB connected');
 
-app.get('/', (req, res) => {
-  res.json({ 
-    message: 'WhatsApp Web Clone Backend Running!',
-    endpoints: {
-      processPayloads: 'POST /api/webhook/process-payloads',
-      getMessages: 'GET /api/webhook/messages',
-      sendMessage: 'POST /api/webhook/messages',
-      getConversations: 'GET /api/webhook/conversations'
-    }
-  });
-});
+    app.use('/api/webhook', webhookRoutes);
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+    app.get('/', (req, res) => {
+      res.json({ 
+        message: 'WhatsApp Web Clone Backend Running!',
+        endpoints: {
+          processPayloads: 'POST /api/webhook/process-payloads',
+          getMessages: 'GET /api/webhook/messages',
+          sendMessage: 'POST /api/webhook/messages',
+          getConversations: 'GET /api/webhook/conversations'
+        }
+      });
+    });
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (err) {
+    console.error('MongoDB connection failed:', err.message);
+    process.exit(1);
+  }
+}
+
+start();
